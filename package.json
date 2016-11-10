@@ -1,0 +1,8 @@
+{
+  "name": "github-battle",
+  "version": "1.0.0",
+  "description": "React app that creates a battle between two GitHub.com users and let's you know the winner.",
+  "main": "index.js",
+  "author": "Joe Dooley <hello@developingdesigns.com> (https://www.developingdesigns.com/)",
+  "license": "MIT"
+}
