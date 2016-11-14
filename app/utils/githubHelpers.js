@@ -2,8 +2,8 @@
 var axios = require('axios');
 var logCustomMessage = require('./logCustomMessage');
 
-var id = "YOUR_CLIENT_ID";
-var sec = "YOUR_SECRET_ID";
+var id = "f0c6fbacada9d51c5184";
+var sec = "Y2cda01426ed756d1d9ffe5748bdd22bb1ea83891";
 var param = "?client_id=" + id + "&client_secret=" + sec;
 
 function getUserInfo (username) {
