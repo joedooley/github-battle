@@ -1,18 +1,25 @@
 // config/routes.js
+var React = require('react');
+var ReactRouter = require('react-router');
+var Router = ReactRouter.Router;
+var Route = ReactRouter.Route;
+var hashHistory = ReactRouter.hashHistory;
+var IndexRoute = ReactRouter.IndexRoute;
+var Main = require('../components/Main');
+var Home = require("../components/Home");
+var PromptContainer = require('../containers/PromptContainer');
+var ConfirmBattleContainer = require('../containers/ConfirmBattleContainer');
+var ResultsContainer = require('../containers/ResultsContainer');
 
-let React = require('react');
-let ReactRouter = require('react-router');
-let Router = ReactRouter.Router;
-let Route = ReactRouter.Route;
-let hashHistory = ReactRouter.hashHistory;
-let IndexRoute = ReactRouter.IndexRoute;
-let Main = require('../components/Main');
-let Home = require('../components/Home');
 
-let routes = (
+var routes = (
 	<Router history={hashHistory}>
-		<Route path="/" component={Main}>
+		<Route path='/' component={Main}>
 			<IndexRoute component={Home} />
+			<Route path='playerOne' header='Player One' component={PromptContainer} />
+			<Route path='playerTwo/:playerOne' header='Player Two' component={PromptContainer} />
+			<Route path='battle' component={ConfirmBattleContainer} />
+			<Route path='results' component={ResultsContainer} />
 		</Route>
 	</Router>
 );
