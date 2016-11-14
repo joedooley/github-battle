@@ -1,29 +1,26 @@
 // utils/githubHelpers.js
 var axios = require('axios');
+var logCustomMessage = require('./logCustomMessage');
 
-
-var base = 'https://api.github.com/users/';
-var id = 'f0c6fbacada9d51c5184';
-var sec = '2cda01426ed756d1d9ffe5748bdd22bb1ea83891';
+var id = "YOUR_CLIENT_ID";
+var sec = "YOUR_SECRET_ID";
 var param = "?client_id=" + id + "&client_secret=" + sec;
 
-
-
 function getUserInfo (username) {
-    return axios.get(base + username + param);
+    return axios.get('https://api.github.com/users/' + username + param);
 }
 
-function getRepos(username) {
-    return axios.get(base + username + '/repos' + param + '&per_page=100');
+function getRepos (username) {
+    return axios.get('https://api.github.com/users/' + username + '/repos' + param + '&per_page=100');
 }
 
-function getTotalStars(repos) {
+function getTotalStars (repos) {
     return repos.data.reduce(function (prev, current) {
         return prev + current.stargazers_count
     }, 0)
 }
 
-function getPlayersData(player) {
+function getPlayersData (player) {
     return getRepos(player.login)
         .then(getTotalStars)
         .then(function (totalStars) {
@@ -34,10 +31,10 @@ function getPlayersData(player) {
         })
 }
 
-function calculateScores(players) {
+function calculateScores (players) {
     return [
         players[0].followers * 3 + players[0].totalStars,
-        players[1].followers * 3 + players[1].totalStars,
+        players[1].followers * 3 + players[1].totalStars
     ]
 }
 
@@ -51,14 +48,24 @@ var helpers = {
                     return user.data
                 })
             })
-            .catch(function (err) {console.warn('Error in getPlayersInfo: ', err)})
+            .catch(function (error) {
+                return logCustomMessage(error.statusText, {
+                    players: players,
+                    error: error,
+                })
+            })
     },
     battle: function (players) {
         var playerOneData = getPlayersData(players[0]);
         var playerTwoData = getPlayersData(players[1]);
         return axios.all([playerOneData, playerTwoData])
             .then(calculateScores)
-            .catch(function (err) {console.warn('Error in getPlayersInfo: ', err)})
+            .catch(function (error) {
+                return logCustomMessage(error.statusText, {
+                    players: players,
+                    error: error,
+                })
+            })
     }
 };
 

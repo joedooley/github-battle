@@ -2,10 +2,7 @@
 var React    = require('react');
 var ReactDOM = require('react-dom');
 var routes   = require('./config/routes');
-
-ReactDOM.render(routes, document.getElementById('app'));
-
-let Raven = require('raven-js');
+var Raven = require('raven-js');
 
 let sentryKey = 'eea2e9b9ec3c48fab60c312fb00521d7';
 let sentryApp = '114001';
@@ -17,6 +14,10 @@ let _APP_INFO = {
 	version: '1.0'
 };
 
+window.onerror = function () {
+	Raven.showReportDialog();
+};
+
 Raven.config(
 	sentryURL, {
 		release: _APP_INFO.version,
@@ -26,5 +27,4 @@ Raven.config(
 	}
 ).install();
 
-
-
+ReactDOM.render(routes, document.getElementById('app'));
