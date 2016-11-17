@@ -1,14 +1,13 @@
-// app/index.js
-var React    = require('react');
-var ReactDOM = require('react-dom');
-var routes   = require('./config/routes');
-var Raven = require('raven-js');
+import React from 'react'
+import ReactDOM from 'react-dom'
+import routes from './config/routes'
+import Raven from 'raven-js'
 
-let sentryKey = 'eea2e9b9ec3c48fab60c312fb00521d7';
-let sentryApp = '114001';
-let sentryURL = 'https://' + sentryKey + '@sentry.io/' + sentryApp;
+const sentryKey = 'eea2e9b9ec3c48fab60c312fb00521d7';
+const sentryApp = '114001';
+const sentryURL = 'https://' + sentryKey + '@sentry.io/' + sentryApp;
 
-let _APP_INFO = {
+const _APP_INFO = {
 	name   : 'Github Battle',
 	branch : 'video4',
 	version: '1.0'
@@ -27,4 +26,4 @@ Raven.config(
 	}
 ).install();
 
-ReactDOM.render(routes, document.getElementById('app'));
+ReactDOM.render(routes, document.getElementById('app'))
